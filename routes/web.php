@@ -29,6 +29,9 @@ Route::group([
 });
 
 
+
+
+
 Route::get('/catalog/index', 'CatalogController@index')->name('catalog.index');
 Route::get('/catalog/category/{slug}', 'CatalogController@category')->name('catalog.category');
 Route::get('/catalog/product/{slug}', 'CatalogController@product')->name('catalog.product');
