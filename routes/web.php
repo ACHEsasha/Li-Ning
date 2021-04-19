@@ -25,7 +25,10 @@ Route::group([
     'namespace' => 'Admin', // пространство имен контроллера
     'middleware' => ['auth', 'admin'] // один или несколько посредников
 ], function () {
+    // главная страница панели управления
     Route::get('index', 'IndexController')->name('index');
+    // CRUD-операции над категориями каталога
+    Route::resource('category', 'CategoryController');
 });
 
 
@@ -54,3 +57,4 @@ Route::post('/basket/remove/{id}', 'BasketController@remove')
     ->where('id', '[0-9]+')
     ->name('basket.remove');
 Route::post('/basket/clear', 'BasketController@clear')->name('basket.clear');
+

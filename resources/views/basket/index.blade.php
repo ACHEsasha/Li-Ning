@@ -59,7 +59,7 @@
                               method="post">
                             @csrf
                             <button type="submit" class="m-0 p-0 border-0 bg-transparent">
-                            <img src="{{ asset('img/delete.png') }}" alt="" class="img-fluid">
+                                <img src="{{ asset('img/delete.png') }}" alt="" class="img-fluid">
                             </button>
                         </form>
                     </td>

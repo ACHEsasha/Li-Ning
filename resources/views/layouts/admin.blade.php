@@ -27,7 +27,7 @@
         <!-- Основная часть меню (может содержать ссылки, формы и прочее) -->
         <div class="collapse navbar-collapse" id="navbar-example">
             <!-- Этот блок расположен слева -->
-            <!-- <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="#">Заказы</a>
                 </li>
@@ -35,15 +35,12 @@
                     <a class="nav-link" href="#">Каталог</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Категории</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Бренды</a>
+                    <a class="nav-link" href="/admin/category">Категории</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Товары</a>
                 </li>
-            </ul> -->
+            </ul>
 
             <!-- Этот блок расположен справа -->
             <ul class="navbar-nav ml-auto">
