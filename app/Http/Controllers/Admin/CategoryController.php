@@ -2,56 +2,58 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Helpers\ImageSaver;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryCatalogRequest;
+use App\Models\Category;
 
-class CategoryController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index() {
-        $roots = Category::roots();
-        return view('admin.category.index', compact('roots'));
+class CategoryController extends Controller {
+
+    private $ImageSaver;
+
+    public function __construct(ImageSaver $ImageSaver) {
+        $this->ImageSaver = $ImageSaver;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Показывает список всех категорий
+     *
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function index() {
+        $items = Category::all();
+        return view('admin.category.index', compact('items'));
+    }
+
+    /**
+     * Показывает форму для создания категории
      *
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        // для возможности выбора родителя
-        $parents = Category::roots();
-        return view('admin.category.create', compact('parents'));
+        // все категории для возможности выбора родителя
+        $items = Category::all();
+        return view('admin.category.create', compact('items'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Сохраняет новую категорию в базу данных
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-        // проверяем данные формы создания категории
-        $this->validate($request, [
-            'parent_id' => 'integer',
-            'name' => 'required|max:100',
-            'slug' => 'required|max:100|unique:categories,slug|alpha_dash',
-            'image' => 'mimes:jpeg,jpg,png|max:5000'
-        ]);
-        // проверка пройдена, сохраняем категорию
-        $category = Category::create($request->all());
+    public function store(CategoryCatalogRequest $request) {
+        $data = $request->all();
+        $data['image'] = $this->ImageSaver->upload($request, null, 'category');
+        $category = Category::create($data);
         return redirect()
             ->route('admin.category.show', ['category' => $category->id])
             ->with('success', 'Новая категория успешно создана');
     }
 
     /**
-     * Display the specified resource.
+     * Показывает страницу категории
      *
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
@@ -61,51 +63,35 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Показывает форму для редактирования категории
      *
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category) {
-        // для возможности выбора родителя
-        $parents = Category::roots();
-        return view('admin.category.edit', compact('category', 'parents'));
+        // все категории для возможности выбора родителя
+        $items = Category::all();
+        return view('admin.category.edit',compact('category', 'items'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Обновляет категорию каталога
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category) {
-        // проверяем данные формы редактирования категории
-        $id = $category->id;
-        $this->validate($request, [
-            'parent_id' => 'integer',
-            'name' => 'required|max:100',
-            /*
-             * Проверка на уникальность slug, исключая эту категорию по идентифкатору:
-             * 1. categories — таблица базы данных, где проверяется уникальность
-             * 2. slug — имя колонки, уникальность значения которой проверяется
-             * 3. значение, по которому из проверки исключается запись таблицы БД
-             * 4. поле, по которому из проверки исключается запись таблицы БД
-             * Для проверки будет использован такой SQL-запрос к базе данныхЖ
-             * SELECT COUNT(*) FROM `categories` WHERE `slug` = '...' AND `id` <> 17
-             */
-            'slug' => 'required|max:100|unique:categories,slug,'.$id.',id|alpha_dash',
-            'image' => 'mimes:jpeg,jpg,png|max:5000'
-        ]);
-        // проверка пройдена, обновляем категорию
-        $category->update($request->all());
+    public function update(CategoryCatalogRequest $request, Category $category) {
+        $data = $request->all();
+        $data['image'] = $this->ImageSaver->upload($request, $category, 'category');
+        $category->update($data);
         return redirect()
             ->route('admin.category.show', ['category' => $category->id])
             ->with('success', 'Категория была успешно исправлена');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удаляет категорию каталога
      *
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
@@ -120,6 +106,7 @@ class CategoryController extends Controller
         if (!empty($errors)) {
             return back()->withErrors($errors);
         }
+        $this->ImageSaver->remove($category, 'category');
         $category->delete();
         return redirect()
             ->route('admin.category.index')

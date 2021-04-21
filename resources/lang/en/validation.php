@@ -116,6 +116,8 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'uuid'                 => 'Поле :attribute должно быть корректным UUID.',
+    'parent_id'            => 'Поле «:attribute» имеет недопустимое значение',
 
     /*
     |--------------------------------------------------------------------------
@@ -134,6 +136,36 @@ return [
         ],
     ],
 
+    'custom' => [
+        'name' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
+        ],
+        'email' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
+        ],
+        'phone' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
+        ],
+        'address' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
+        ],
+        'slug' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'unique' => 'Поле «:attribute» должно быть уникальным значением',
+            'regex' => 'Поле «:attribute» допускает только буквы, цифры, «-» и «_»',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
+        ],
+        'parent_id' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'regex' => 'Поле «:attribute» должно быть целым положительным числом',
+            'invalid' => 'Категорию нелья поместить внутрь самой себя',
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
@@ -145,6 +177,14 @@ return [
     |
     */
 
-    'attributes' => [],
-
+    'attributes' => [
+        'name'                  => 'Имя, Фамилия',
+        'slug'                  => 'ЧПУ (англ)',
+        'email'                 => 'Адрес почты',
+        'password'              => 'Пароль',
+        'password_confirmation' => 'Подтверждение пароля',
+        'address'               => 'Адрес доставки',
+        'phone'                 => 'Номер телефона',
+        'parent_id'             => 'Родитель',
+    ],
 ];
