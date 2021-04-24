@@ -3,9 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use PhpParser\Node\Stmt\Catch_;
 
 class Product extends Model {
+
+    protected $fillable = [
+        'category_id',
+        'name',
+        'slug',
+        'content',
+        'image',
+    ];
+
     /**
      * Связь «товар принадлежит» таблицы `products` с таблицей `categories`
      */

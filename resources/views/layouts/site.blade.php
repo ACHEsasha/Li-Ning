@@ -27,7 +27,7 @@
                         <a class="nav-link" href="{{ route('catalog.index') }}">Каталог</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Доставка</a>
+                        <a class="nav-link" href="{{ route('basket.checkout') }}">Доставка</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Контакты</a>

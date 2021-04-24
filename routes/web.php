@@ -29,6 +29,11 @@ Route::group([
     Route::get('index', 'IndexController')->name('index');
     // CRUD-операции над категориями каталога
     Route::resource('category', 'CategoryController');
+    // CRUD-операции над товарами каталога
+    Route::resource('product', 'ProductController');
+    // доп.маршрут для просмотра товаров категории
+    Route::get('product/category/{category}', 'ProductController@category')
+        ->name('product.category');
 });
 
 
@@ -41,18 +46,15 @@ Route::get('/basket/checkout', 'BasketController@checkout')->name('basket.checko
 Route::post('/basket/saveorder', 'BasketController@saveOrder')->name('basket.saveorder');
 Route::get('/basket/success', 'BasketController@success')
     ->name('basket.success');
-
 Route::post('/basket/add/{id}', 'BasketController@add')
     ->where('id', '[0-9]+')
     ->name('basket.add');
-
 Route::post('/basket/plus/{id}', 'BasketController@plus')
     ->where('id', '[0-9]+')
     ->name('basket.plus');
 Route::post('/basket/minus/{id}', 'BasketController@minus')
     ->where('id', '[0-9]+')
     ->name('basket.minus');
-
 Route::post('/basket/remove/{id}', 'BasketController@remove')
     ->where('id', '[0-9]+')
     ->name('basket.remove');

@@ -4,7 +4,16 @@
             <h3>{{ $category->name }}</h3>
         </div>
         <div class="card-body p-0">
-            <img src="https://via.placeholder.com/400x120" alt="" class="img-fluid">
+            @php
+                if ($category->image) {
+                    $url = url('storage/catalog/category/image/' . $category->image);
+                    // $url = Storage::disk('public')->url('catalog/category/image/' . $category->image);
+                } else {
+                    $url = url('storage/catalog/category/image/default.jpg');
+                    // $url = Storage::disk('public')->url('catalog/category/image/default.jpg');
+                }
+            @endphp
+            <img src="{{ $url }}" alt="" class="img-fluid">
         </div>
         <div class="card-footer">
             <a href="{{ route('catalog.category', ['slug' => $category->slug]) }}"

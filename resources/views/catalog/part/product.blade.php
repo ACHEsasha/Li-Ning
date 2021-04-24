@@ -4,7 +4,16 @@
             <h3 class="mb-0">{{ $product->name }}</h3>
         </div>
         <div class="card-body p-0">
-            <img src="https://via.placeholder.com/400x120" alt="" class="img-fluid">
+            @php
+                if ($product->image) {
+                    $url = url('storage/catalog/product/image/' . $product->image);
+                    // $url = Storage::disk('public')->url('catalog/product/image/' . $product->image);
+                } else {
+                    $url = url('storage/catalog/product/image/default.jpg');
+                    // $url = Storage::disk('public')->url('catalog/product/image/default.jpg');
+                }
+            @endphp
+            <img src="{{ $url }}" alt="" class="img-fluid">
         </div>
         <div class="card-footer">
             <!-- Форма для добавления товара в корзину -->

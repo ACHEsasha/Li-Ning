@@ -38,7 +38,7 @@
                     <a class="nav-link" href="/admin/category">Категории</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Товары</a>
+                    <a class="nav-link" href="/admin/product">Товары</a>
                 </li>
             </ul>
 
