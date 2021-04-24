@@ -1,13 +1,5 @@
 @csrf
 <div class="form-group">
-    <input type="text" class="form-control" name="name" placeholder="Наименование"
-           required maxlength="100" value="{{ old('name') ?? $product->name ?? '' }}">
-</div>
-<div class="form-group">
-    <input type="text" class="form-control" name="slug" placeholder="ЧПУ (на англ.)"
-           required maxlength="100" value="{{ old('slug') ?? $product->slug ?? '' }}">
-</div>
-<div class="form-group">
     @php
         $category_id = old('category_id') ?? $product->category_id ?? 0;
     @endphp
@@ -17,6 +9,18 @@
             @include('admin.product.part.branch', ['level' => -1, 'parent' => 0])
         @endif
     </select>
+</div>
+<div class="form-group">
+    <input type="text" class="form-control" name="name" placeholder="Наименование"
+           required maxlength="100" value="{{ old('name') ?? $product->name ?? '' }}">
+</div>
+<div class="form-group">
+    <input type="text" class="form-control" name="slug" placeholder="ЧПУ (на англ.)"
+           required maxlength="100" value="{{ old('slug') ?? $product->slug ?? '' }}">
+</div>
+<div class="form-group">
+    <input type="text" class="form-control w-25 d-inline mr-4" placeholder="Цена (руб.)"
+           name="price" required value="{{ old('price') ?? $product->price ?? '' }}">
 </div>
 <div class="form-group">
     <textarea class="form-control" name="content" placeholder="Описание"

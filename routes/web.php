@@ -34,6 +34,16 @@ Route::group([
     // доп.маршрут для просмотра товаров категории
     Route::get('product/category/{category}', 'ProductController@category')
         ->name('product.category');
+    // просмотр и редактирование заказов
+    Route::resource('order', 'OrderController', ['except' => [
+        'create', 'store', 'destroy'
+    ]]);
+    // просмотр и редактирование пользователей
+    Route::resource('user', 'UserController', ['except' => [
+        'create', 'store', 'show', 'destroy'
+    ]]);
+    // CRUD-операции над страницами сайта
+    Route::resource('page', 'PageController');
 });
 
 

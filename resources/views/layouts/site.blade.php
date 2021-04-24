@@ -34,12 +34,12 @@
                     </li>
                 </ul>
                 <!-- Этот блок поиск -->
-                <!-- <form class="form-inline my-2 my-lg-0">
+                <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search"
                         placeholder="Поиск по каталогу" aria-label="Search">
                     <button class="btn btn-outline-info my-2 my-sm-0"
                             type="submit">Искать</button>
-                </form> -->
+                </form>
                 <!-- Этот блок авторизация -->
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">

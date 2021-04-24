@@ -29,7 +29,10 @@
             <!-- Этот блок расположен слева -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Заказы</a>
+                    <a class="nav-link" href="/admin/user">Пользователи</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/order">Заказы</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Каталог</a>
@@ -39,6 +42,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/product">Товары</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/page">Страницы</a>
                 </li>
             </ul>
 

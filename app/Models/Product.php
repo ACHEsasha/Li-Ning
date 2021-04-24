@@ -12,6 +12,7 @@ class Product extends Model {
         'slug',
         'content',
         'image',
+        'price',
     ];
 
     /**

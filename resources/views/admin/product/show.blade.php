@@ -7,6 +7,7 @@
             <p><strong>Название:</strong> {{ $product->name }}</p>
             <p><strong>ЧПУ (англ):</strong> {{ $product->slug }}</p>
             <p><strong>Категория:</strong> {{ $product->category->name }}</p>
+            <p><strong>Цена:</strong> {{ $product->price }}</p>
         </div>
         <div class="col-md-6">
             @php

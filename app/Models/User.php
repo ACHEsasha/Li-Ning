@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -36,4 +37,32 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /**
+     * Преобразует дату и время регистрации пользователя из UTC в Europe/Moscow
+     *
+     * @param $value
+     * @return \Carbon\Carbon|false
+     */
+    public function getCreatedAtAttribute($value) {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $value)->timezone('Asia/Bishkek');
+    }
+
+    /**
+     * Преобразует дату и время обновления пользователя из UTC в Europe/Moscow
+     *
+     * @param $value
+     * @return \Carbon\Carbon|false
+     */
+    public function getUpdatedAtAttribute($value) {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $value)->timezone('Asia/Bishkek');
+    }
+
+    /**
+     * Связь «один ко многим» таблицы `users` с таблицей `orders`
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
 }
