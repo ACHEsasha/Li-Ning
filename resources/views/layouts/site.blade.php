@@ -13,7 +13,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <!-- Бренд и кнопка «Гамбургер» -->
-            <a class="navbar-brand" href="/">Li-Ning</a>
+            <a class="navbar-brand" href="{{ route('catalog.index') }}">Li-Ning</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbar-example" aria-controls="navbar-example"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -23,9 +23,6 @@
             <div class="collapse navbar-collapse" id="navbar-example">
                 <!-- Этот блок меню -->
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('catalog.index') }}">Каталог</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('basket.checkout') }}">Доставка</a>
                     </li>

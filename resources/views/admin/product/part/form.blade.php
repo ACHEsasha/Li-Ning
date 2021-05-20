@@ -19,7 +19,7 @@
            required maxlength="100" value="{{ old('slug') ?? $product->slug ?? '' }}">
 </div>
 <div class="form-group">
-    <input type="text" class="form-control w-25 d-inline mr-4" placeholder="Цена (руб.)"
+    <input type="text" class="form-control w-25 d-inline mr-4" placeholder="Цена (сом.)"
            name="price" required value="{{ old('price') ?? $product->price ?? '' }}">
 </div>
 <div class="form-group">
