@@ -6,7 +6,7 @@
         @csrf
         @method('PUT')
         <div class="form-group">
-            @php $status = old('status') ?? $order->status ?? 0) @endphp
+            @php($status = old('status') ?? $order->status ?? 0)
             <select name="status" class="form-control" title="Статус заказа">
             @foreach ($statuses as $key => $value)
                 <option value="{{ $key }}" @if ($key == $status) selected @endif>
