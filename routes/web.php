@@ -13,12 +13,33 @@
 
 Route::get('/', 'IndexController')->name('index');
 
-Route::get('index', 'UserController@index')->name('index');
+Route::get('user.index', 'UserController@index')->name('index');
 Auth::routes();
 
 Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('index', 'Admin\IndexController')->name('index');
 });
+
+Route::name('user.')->prefix('user')->group(function () {
+    // регистрация, вход в ЛК, восстановление пароля
+    Auth::routes();
+});
+
+Route::group([
+    'as' => 'user.', // имя маршрута, например user.index
+    'prefix' => 'user', // префикс маршрута, например user/index
+    'middleware' => ['auth'] // один или несколько посредников
+], function () {
+    // главная страница личного кабинета пользователя
+    Route::get('index', 'UserController@index')->name('index');
+    // CRUD-операции над профилями пользователя
+    Route::resource('profile', 'ProfileController');
+    // просмотр списка заказов в личном кабинете
+    Route::get('order', 'OrderController@index')->name('order.index');
+    // просмотр отдельного заказа в личном кабинете
+    Route::get('order/{order}', 'OrderController@show')->name('order.show');
+});
+
 Route::group([
     'as' => 'admin.', // имя маршрута, например admin.index
     'prefix' => 'admin', // префикс маршрута, например admin/index
@@ -44,27 +65,48 @@ Route::group([
     ]]);
 });
 
-
 Route::get('/catalog/index', 'CatalogController@index')->name('catalog.index');
 Route::get('/catalog/category/{slug}', 'CatalogController@category')->name('catalog.category');
 Route::get('/catalog/product/{slug}', 'CatalogController@product')->name('catalog.product');
 
-Route::get('/basket/index', 'BasketController@index')->name('basket.index');
-Route::get('/basket/checkout', 'BasketController@checkout')->name('basket.checkout');
-Route::post('/basket/saveorder', 'BasketController@saveOrder')->name('basket.saveorder');
-Route::get('/basket/success', 'BasketController@success')
-    ->name('basket.success');
-Route::post('/basket/add/{id}', 'BasketController@add')
-    ->where('id', '[0-9]+')
-    ->name('basket.add');
-Route::post('/basket/plus/{id}', 'BasketController@plus')
-    ->where('id', '[0-9]+')
-    ->name('basket.plus');
-Route::post('/basket/minus/{id}', 'BasketController@minus')
-    ->where('id', '[0-9]+')
-    ->name('basket.minus');
-Route::post('/basket/remove/{id}', 'BasketController@remove')
-    ->where('id', '[0-9]+')
-    ->name('basket.remove');
-Route::post('/basket/clear', 'BasketController@clear')->name('basket.clear');
+Route::group([
+    'as' => 'basket.', // имя маршрута, например basket.index
+    'prefix' => 'basket', // префикс маршрута, например bsaket/index
+], function () {
+    // список всех товаров в корзине
+    Route::get('index', 'BasketController@index')
+        ->name('index');
+    // страница с формой оформления заказа
+    Route::get('checkout', 'BasketController@checkout')
+        ->name('checkout');
+    // получение данных профиля для оформления
+    Route::post('profile', 'BasketController@profile')
+        ->name('profile');
+    // отправка данных формы для сохранения заказа в БД
+    Route::post('saveorder', 'BasketController@saveOrder')
+        ->name('saveorder');
+    // страница после успешного сохранения заказа в БД
+    Route::get('success', 'BasketController@success')
+        ->name('success');
+    // отправка формы добавления товара в корзину
+    Route::post('add/{id}', 'BasketController@add')
+        ->where('id', '[0-9]+')
+        ->name('add');
+    // отправка формы изменения кол-ва отдельного товара в корзине
+    Route::post('plus/{id}', 'BasketController@plus')
+        ->where('id', '[0-9]+')
+        ->name('plus');
+    // отправка формы изменения кол-ва отдельного товара в корзине
+    Route::post('minus/{id}', 'BasketController@minus')
+        ->where('id', '[0-9]+')
+        ->name('minus');
+    // отправка формы удаления отдельного товара из корзины
+    Route::post('remove/{id}', 'BasketController@remove')
+        ->where('id', '[0-9]+')
+        ->name('remove');
+    // отправка формы для удаления всех товаров из корзины
+    Route::post('clear', 'BasketController@clear')
+        ->name('clear');
+});
+
 

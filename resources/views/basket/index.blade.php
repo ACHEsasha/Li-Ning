@@ -6,12 +6,6 @@
         @php
             $basketCost = 0;
         @endphp
-        <!-- <form action="{{ route('basket.clear') }}" method="post" class="text-right">
-            @csrf
-            <button type="submit" class="btn btn-outline-danger mb-4 mt-0">
-                Очистить корзину
-            </button>
-        </form> -->
         <table class="table table-bordered">
             <tr>
                 <th>№</th>
@@ -19,7 +13,6 @@
                 <th>Цена</th>
                 <th>Кол-во</th>
                 <th>Стоимость</th>
-                <th></th>
             </tr>
             @foreach($products as $product)
                 @php
@@ -68,9 +61,11 @@
             <tr>
                 <th colspan="4" class="text-right">Итого : </th>
                 <th>{{ number_format($basketCost, 2, '.', '') . ' ' . 'сом' }}</th>
-                <th></th>
             </tr>
         </table>
+        <a href="{{ route('basket.checkout') }}" class="btn btn-success float-right">
+            Оформить заказ
+        </a>
     @else
         <p>Ваша корзина пуста, скорее пополняйте ее :)</p>
     @endif

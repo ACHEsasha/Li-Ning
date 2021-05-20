@@ -65,4 +65,13 @@ class User extends Authenticatable
     public function orders() {
         return $this->hasMany(Order::class);
     }
+
+    /**
+     * Связь «один ко многим» таблицы `users` с таблицей `profiles`
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function profiles() {
+        return $this->hasMany(Profile::class);
+    }
 }

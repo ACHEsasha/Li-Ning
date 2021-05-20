@@ -56,7 +56,7 @@
                         @endif
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('index') }}">Личный кабинет</a>
+                            <a class="nav-link" href="{{ route('user.index') }}">Личный кабинет</a>
                         </li>
                     @endif
                 </ul>
